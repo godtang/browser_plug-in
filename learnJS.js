@@ -8,28 +8,37 @@
 // @grant        none
 // ==/UserScript==
 
+var noChatboxTimes = 0;
+
 (function () {
-    ///页面加载完成后，500毫秒调用去除广告
+    ///页面加载完成后，1000毫秒调用去除聊天框
     setTimeout(function () {
-        startAD();
+        removeChatbox();
     }, 1000);
 })();
 
-function startAD() {
-    ///每500毫秒执行一次去除广告
-    setInterval(function () {
-        ///聊天机器人窗口
-        try {
-            if (null === window.parent.document.querySelector("#ev_talkbox_wrapper")) {
-            }
-            else {
-                window.parent.document.querySelector("#ev_talkbox_wrapper").remove();
-            }
+function removeChatbox() {
+    ///聊天机器人窗口
+    try {
+        if (null === window.parent.document.querySelector("#ev_talkbox_wrapper")) {
+            noChatboxTimes++;
         }
-        catch (err) {
-            console.log(err); // 可执行
+        else {
+            window.parent.document.querySelector("#ev_talkbox_wrapper").remove();
         }
-
-    }, 1000);
+    }
+    catch (err) {
+        console.log(err); // 可执行
+    }
+    if (noChatboxTimes < 5) {
+        setTimeout(function () {
+            removeChatbox();
+        }, 1000);
+    }
+    else {
+        // 超过5次都没有找到聊天框，不再启动
+        console.log("超过5次都没有找到聊天框，不再启动");
+    }
 }
+
 
