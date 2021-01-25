@@ -12,9 +12,7 @@ var noChatboxTimes = 0;
 
 (function () {
     ///页面加载完成后，1000毫秒调用去除聊天框
-    setTimeout(function () {
-        removeChatbox();
-    }, 1000);
+    setTimeout(removeChatbox, 1000);
 })();
 
 function removeChatbox() {
@@ -27,9 +25,7 @@ function removeChatbox() {
             window.parent.document.querySelector("#ev_talkbox_wrapper").remove();
         }
         if (noChatboxTimes < 5) {
-            setTimeout(function () {
-                removeChatbox();
-            }, 1000);
+            setTimeout(removeChatbox, 1000);
         }
         else {
             // 超过5次都没有找到聊天框，不再启动
