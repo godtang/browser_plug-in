@@ -26,18 +26,19 @@ function removeChatbox() {
         else {
             window.parent.document.querySelector("#ev_talkbox_wrapper").remove();
         }
+        if (noChatboxTimes < 5) {
+            setTimeout(function () {
+                removeChatbox();
+            }, 1000);
+        }
+        else {
+            // 超过5次都没有找到聊天框，不再启动
+            console.log("超过5次都没有找到聊天框，不再启动");
+        }
     }
     catch (err) {
+        // 异常的话不再启动
         console.log(err); // 可执行
-    }
-    if (noChatboxTimes < 5) {
-        setTimeout(function () {
-            removeChatbox();
-        }, 1000);
-    }
-    else {
-        // 超过5次都没有找到聊天框，不再启动
-        console.log("超过5次都没有找到聊天框，不再启动");
     }
 }
 
